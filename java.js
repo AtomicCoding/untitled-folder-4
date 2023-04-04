@@ -6,6 +6,8 @@
 const context = document.querySelector("canvas").getContext("2d");
 context.canvas.height = 450;
 context.canvas.width = 450;
+let score = 0;
+let colliding = false;
 const controller = {
     left: false,
     right: false,
@@ -43,6 +45,12 @@ const square = {
     yVel: 0,
     speed: 10
 }
+const enemySquare = {
+    height:30,
+    width:30,
+    x:Math.random()*450,
+    y:Math.random()*225 +100
+}
 function move(){
     if(controller.left && square.x > 0){
         square.x -= square.speed;
@@ -53,15 +61,31 @@ function move(){
     if(controller.up && square.y > 0){
         square.y -= square.speed;
     }
-    if(controller.down && square.y + square.height < 450){
+    if(controller.down && square.y + square.height <= 450){ // modified condition
         square.y += square.speed;
     }
 }
 function draw(){
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
     context.fillRect(square.x, square.y, square.width, square.height);
+    context.fillRect(enemySquare.x,enemySquare.y,enemySquare.width,enemySquare.height);
+    if(square.x + square.width >= enemySquare.x
+        && square.x <= enemySquare.x + enemySquare.width 
+        && square.y + square.height >= enemySquare.y
+        && square.y <= enemySquare.y + enemySquare.height ){
+            if (!colliding) {
+                score++;
+                console.log(score);
+                document.getElementById('score').innerHTML = "Score = " + score;
+                colliding = true;
+                // Change the position of the enemy square
+                enemySquare.x = Math.random()*255 +100;
+                enemySquare.y = Math.random()*225 +100;
+            }
+        } else {
+            colliding = false;
+        }
 }
-setInterval(draw, 10);
-
-window.addEventListener("keydown", controller.keyListener)
+setInterval(draw, 5);
+window.addEventListener("keydown", controller.keyListener);
 window.addEventListener("keyup", controller.keyListener);
