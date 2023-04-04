@@ -85,7 +85,7 @@ function draw(){
         } else {
             colliding = false;
         }
-}
+    }
 setInterval(draw, 5);
 window.addEventListener("keydown", controller.keyListener);
 window.addEventListener("keyup", controller.keyListener);
