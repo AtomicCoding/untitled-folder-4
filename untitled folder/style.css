@@ -1,0 +1,21 @@
+#countLabel{
+    display:block;
+    text-align: center;
+    font-size: 50px;
+}
+h1{
+    text-align: center;
+    color: rgb(33, 57, 79);
+}
+#gameCanvas{
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    background-color: bisque;
+}
+p{
+    text-align: center;
+    font-size: x-large;
+}
